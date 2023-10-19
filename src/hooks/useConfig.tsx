@@ -13,8 +13,8 @@ const CONFIG_KEY = 'envConfig';
 const ACTIVE_KEY = 'envActive';
 
 export const useConfig = () => {
-  const [config, setConfig] = useState<InjectType[]>();
-  const [activeId, setActiveId] = useState<string>();
+  const [config, setConfig] = useState<InjectType[]>([]);
+  const [activeId, setActiveId] = useState<string>('');
   const [activeConfig, setActiveConfig] = useState<InjectType>();
 
   const updateCurConfig = () => {

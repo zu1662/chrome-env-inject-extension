@@ -91,6 +91,9 @@ devDependencies:
   chrome-extension-reloader-webpack-plugin:
     specifier: ^1.0.2
     version: 1.0.2
+  chrome-extension-reloader-webpack-plugin-with-sanbox:
+    specifier: ^1.0.2
+    version: registry.npmjs.org/chrome-extension-reloader-webpack-plugin-with-sanbox@1.0.2
   clean-webpack-plugin:
     specifier: ^4.0.0-alpha.0
     version: 4.0.0(webpack@5.89.0)
@@ -8582,4 +8585,11 @@ packages:
   /yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
+    dev: true
+
+  registry.npmjs.org/chrome-extension-reloader-webpack-plugin-with-sanbox@1.0.2:
+    resolution: {integrity: sha512-1KgmQ0Ihcylnb+YMASEXT6R8h5MTUpWntn0eMnAhPVOTfLvPqUrNRhJfw70cBOK5Jkru3YxeGPdnb3pokQhwvQ==, registry: https://registry.npmmirror.com/, tarball: https://registry.npmjs.org/chrome-extension-reloader-webpack-plugin-with-sanbox/-/chrome-extension-reloader-webpack-plugin-with-sanbox-1.0.2.tgz}
+    name: chrome-extension-reloader-webpack-plugin-with-sanbox
+    version: 1.0.2
+    engines: {node: '>=12'}
     dev: true

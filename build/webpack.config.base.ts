@@ -1,5 +1,5 @@
-import { ChromeExtensionReloaderWebpackPlugin } from 'chrome-extension-reloader-webpack-plugin';
-// import { ChromeExtensionReloaderWebpackPlugin } from './plugins/chrome-extension-reloader';
+import { ChromeExtensionReloaderWebpackPlugin } from 'chrome-extension-reloader-webpack-plugin-with-sanbox';
+// import { ChromeExtensionReloaderWebpackPlugin } from './plugins/chrome-extension-reloader/dist/index.js';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';

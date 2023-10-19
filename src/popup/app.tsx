@@ -11,10 +11,12 @@ export const App = () => {
 
   const handleChangeId = (id: string) => {
     changeActiveId(id)
+
+    chrome.browserAction.setIcon({ path: '/images/' + (id ? 'logo-active.png' : 'logo.png')})
     
-    chrome.tabs.query({active: true, currentWindow: true}, ([tab]) => {
-      tab.id && chrome.tabs.reload(tab.id);
-		});
+    // chrome.tabs.query({active: true, currentWindow: true}, ([tab]) => {
+    //   tab.id && chrome.tabs.reload(tab.id);
+		// });
   }
 
   return (

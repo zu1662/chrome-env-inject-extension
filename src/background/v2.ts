@@ -118,7 +118,7 @@ function getLocation(href) {
       url: href,
       protocol: match[1],
       host: match[2],
-      domain: domainMatch[1],
+      domain: domainMatch && domainMatch[1],
       hostname: match[3],
       port: match[4],
       pathname: match[5],

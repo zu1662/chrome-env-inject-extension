@@ -55,6 +55,8 @@ export const App = () => {
 
   const handleEditorAddSave = (curConfig) => {
     const newConfig = config?.concat(curConfig)
+    console.log('----->', newConfig);
+    
     changeConfig(newConfig || [])
   }
 

@@ -42,8 +42,8 @@ const devServerFilePaths = [
   `${cwd}/node_modules/webpack/hot/dev-server.js`
 ];
 
-let backgroundReloaderPath = path.resolve(__dirname, `./backgroundReloader`);
-const contentScriptReloaderPath = path.resolve(__dirname, `./contentScriptReloader`);
+let backgroundReloaderPath = path.resolve(__dirname, `./backgroundReloader.js`);
+const contentScriptReloaderPath = path.resolve(__dirname, `./contentScriptReloader.js`);
 
 export class ChromeExtensionReloaderWebpackPlugin {
   private name = 'ChromeExtensionReloader';
