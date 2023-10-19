@@ -1,0 +1,54 @@
+html, body {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.popup-page {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+.config-box {
+  row-gap: 0;
+}
+.config-item {
+  margin: 0 5px;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 16px;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #efefef;
+  }
+
+  .semi-icon {
+    margin-right: 5px;
+  }
+
+  &.active {
+    border: 1px solid #06c584;
+    background-color: rgba(6, 197, 133, .1);
+  }
+  &.config-list {
+    line-height: 25px;
+  }
+  &.config-setting {
+    color: #3488ff;
+  }
+}
+
+.empty-extra {
+  .semi-typography {
+    font-size: 12px;
+  }
+}
