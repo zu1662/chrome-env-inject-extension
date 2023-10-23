@@ -6,7 +6,7 @@ import { MonacoEditor } from './monacoEditor';
 const { Sider, Content } = Layout;
 
 import './app.less';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { shortId } from '@/utils/utils';
 import { randomColor } from '@/utils/colors';
 
@@ -42,23 +42,23 @@ export const App = () => {
     console.log(values);
   };
 
-  const handleEditorSave = (curConfig) => {
-    let newConfig = config?.map(c => {
-      if(c.id == curConfig.id) {
-        return curConfig
-      }
-      return c
-    })
-
-    changeConfig(newConfig || [])
-  }
-
-  const handleEditorAddSave = (curConfig) => {
-    const newConfig = config?.concat(curConfig)
-    console.log('----->', newConfig);
+  const handleEditorSave = useCallback((curConfig) => {
+    console.log('----->>>', showType, config);
     
-    changeConfig(newConfig || [])
-  }
+    let newConfig: any = []
+    if(showType == 'configs') {
+      newConfig = config?.map(c => {
+        if(c.id == curConfig.id) {
+          return curConfig
+        }
+        return c
+      })
+    } else if (showType == 'adding') {
+      newConfig = config?.concat(curConfig)
+    }
+
+    changeConfig(newConfig)
+  }, [showType, config])
 
   const handleAddConfig = () => {
     const initConfig = {
@@ -71,36 +71,16 @@ export const App = () => {
     initConfig.id = shortId()
     initConfig.color = randomColor()
     setAddConfig(initConfig)
+    setCurActive('')
     setShowType('adding')
   }
 
   useEffect(() => {
-    const queryType = window.location.search.replace('?type=', '') as 'adding'
-    if(queryType == 'adding') handleAddConfig()
+    const queryType = window.location.search.replace('?type=', '')
+    if(queryType == 'adding') {
+      handleAddConfig()
+    }
   }, [])
-  const settingPage = () => {
-    return (
-      <Form labelPosition="left" onSubmit={values => handleSubmitSetting(values)} style={{ padding: '20px' }}>
-        {({ formState, values, formApi }) => (
-          <>
-            <Form.Switch field="switch" label="切换配置自动重载页面" />
-          </>
-        )}
-      </Form>
-    );
-  };
-
-  const configPage = () => {
-    return <div className='config-editor'>
-      <MonacoEditor value={curConfig} onSave={handleEditorSave} />
-    </div>;
-  };
-
-  const addPage = () => {
-    return <div className='config-editor'>
-      <MonacoEditor value={addConfig} onSave={handleEditorAddSave} />
-    </div>;
-  }
 
   return (
     <Layout className="options-page" style={{ border: '1px solid var(--semi-color-border)', height: '100%' }}>
@@ -124,9 +104,20 @@ export const App = () => {
         />
       </Sider>
       <Content>
-        {showType == 'setting' && settingPage()}
-        {showType == 'configs' && configPage()}
-        {showType == 'adding' && addPage()}
+        {showType == 'setting' && (
+          <Form labelPosition="left" onSubmit={values => handleSubmitSetting(values)} style={{ padding: '20px' }}>
+          {({ formState, values, formApi }) => (
+            <>
+              <Form.Switch field="switch" label="切换配置自动重载页面" />
+            </>
+          )}
+        </Form>
+        )}
+        {(showType == 'configs' || showType == 'adding') && (
+          <div className='config-editor'>
+            <MonacoEditor value={showType == 'configs' ? curConfig : addConfig} onSave={handleEditorSave} />
+          </div>
+        )}
       </Content>
     </Layout>
   );

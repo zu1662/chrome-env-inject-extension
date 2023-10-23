@@ -1,12 +1,27 @@
-import { useConfig } from '@/utils/useConfig';
 import { capsule } from '@/utils/logger';
+import { ACTIVE_KEY, CONFIG_KEY, FIRST_INIT } from '@/utils/const';
+import { baseConfig } from '@/utils/base';
 
 chrome.runtime.onInstalled.addListener(() => {
   capsule('Env Extension', 'Injected');
+  chrome.storage.sync.get([FIRST_INIT], data => {
+    const firstInit = data[FIRST_INIT] as number;
+
+    if (!firstInit) {
+      chrome.storage.sync.set({
+        [CONFIG_KEY]: baseConfig,
+        [FIRST_INIT]: 1
+      });
+    }
+  });
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  useConfig().then(({ activeConfig }) => {
+  chrome.storage.sync.get([CONFIG_KEY, ACTIVE_KEY], data => {
+    const config = data[CONFIG_KEY] as InjectType[];
+    const activeId = data[ACTIVE_KEY] as string;
+    const activeConfig = config?.find(v => v.id == activeId);
+
     // tab加载初期就执行
     if (changeInfo.status !== 'complete') return;
 
@@ -28,7 +43,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
   function (details) {
-    useConfig().then(({ activeConfig }) => {
+    chrome.storage.sync.get([CONFIG_KEY, ACTIVE_KEY], data => {
+      const config = data[CONFIG_KEY] as InjectType[];
+      const activeId = data[ACTIVE_KEY] as string;
+      const activeConfig = config?.find(v => v.id == activeId);
+
       const urlReg = new RegExp(activeConfig?.url || '');
 
       const havedCookie = details.requestHeaders?.find(v => v.name == 'Cookie')?.value;

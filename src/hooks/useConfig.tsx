@@ -1,16 +1,5 @@
+import { ACTIVE_KEY, CONFIG_KEY } from '@/utils/const';
 import { useEffect, useState } from 'react';
-
-export interface InjectType {
-  id: string;
-  title: string;
-  url?: string;
-  color?: string;
-  cookies?: string[];
-  scripts?: string[];
-}
-
-const CONFIG_KEY = 'envConfig';
-const ACTIVE_KEY = 'envActive';
 
 export const useConfig = () => {
   const [config, setConfig] = useState<InjectType[]>([]);
